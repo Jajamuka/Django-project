@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http.response import HttpResponse
 from datetime import datetime
+from .models import Post
 # Create your views here.
 
 def hello(r):
@@ -22,3 +23,19 @@ def joke(r):
             <p style="font-size: 30px;">Not Found ;(</p>
         </div>
     """)
+
+#HW3
+def posts(r):
+    posts = Post.objects.all()
+
+    result = ""
+
+    for post in posts:
+        result += f"""
+        <h2>{post.title}</h2>
+        <p>{post.description}</p>
+        <p>Активен: {post.is_active}</p>
+        <hr>
+        """
+
+    return HttpResponse(result)
